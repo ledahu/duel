@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME</title>
+	<link rel="stylesheet" type="text/css" href="./styles.css">
+
+</head>
+<body>
+<h1>
+    Welcome sur la partie <b id="ROOM"></b>
+</h1>
+
+<div id="XYZ"></div>
+
+<div id="MSG"></div>
+
+<div id="UserForm">
+    <form class="name-form">
+        <input id="name-input"  type="text" name="name-input" placeholder="ton pseudo" required>
+        <button type="submit" >GO</button>
+    </form>
+</div>
+
+<div id="CHAT"></div>
+  
+
+   <script src="/socket.io/socket.io.js"></script>    
+    <script src="/uiStuff.js"></script>
+    <script src="/socketStuff.js"></script>
+
+</body>
+</html>
