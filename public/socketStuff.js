@@ -3,7 +3,7 @@ const varRoom = params.get('room') || '';
 
 console.log(varRoom)
 //connect to the socket server!
-const socket = io.connect('http://localhost:9000',{
+const socket = io.connect('http://localhost:9999',{
     query: { varRoom }
 });
 
