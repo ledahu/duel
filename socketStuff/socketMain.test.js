@@ -5,7 +5,6 @@ import { generateUniqueString, getLeaderBoard } from './socketMain.js';
 
 // Mock du tableau global de users
 let users;
-
 beforeEach(() => {
     users = [];
 });
@@ -34,7 +33,7 @@ describe('User Class', () => {
 
 describe('LeaderBoard Function', () => {
     it('should return an empty leaderboard when no users', () => {
-        expect(getLeaderBoard()).toEqual([]);
+        expect(getLeaderBoard(users)).toEqual([]);
     });
 
     it('should return a leaderboard with user scores', () => {
@@ -43,7 +42,7 @@ describe('LeaderBoard Function', () => {
         users[0].userData.score = 10;
         users[1].userData.score = 20;
 
-        const leaderboard = getLeaderBoard();
+        const leaderboard = getLeaderBoard(users);
         expect(leaderboard).toHaveLength(2);
         expect(leaderboard).toContainEqual({ name: 'Alice', score: 10 });
         expect(leaderboard).toContainEqual({ name: 'Bob', score: 20 });

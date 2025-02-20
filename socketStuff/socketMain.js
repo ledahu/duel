@@ -119,7 +119,7 @@ io.on('connect',(socket)=>{
 
 
 
-function getLeaderBoard(){
+function getLeaderBoard(users){
     const leaderBoardArray = users.map(curUser=>{
         if(curUser.userData){
             return{
