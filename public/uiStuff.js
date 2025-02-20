@@ -1,4 +1,3 @@
-
 //set height and width of canvas = window
 let wHeight = window.innerHeight;
 let wWidth = window.innerWidth;
@@ -9,7 +8,6 @@ let words=[]
 let theRoom=''
 let X=0;
 let Y=0;
-
 
 document.addEventListener('mousemove', (event) => {
     const { clientX, clientY } = event;
@@ -58,7 +56,6 @@ function addToChat(data){
 }
 
 function upTab(){
-
     document.querySelector('#XYZ').innerHTML=''
 
     users.forEach((user, index) => {
