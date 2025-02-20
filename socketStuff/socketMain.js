@@ -13,6 +13,9 @@ const users = []
 let roomList =[]
 let theRoom=''
 
+/** @type {{username: string, msg: number}[]} */
+const chatHistory = []
+
 
 
 io.on('connect',(socket)=>{
@@ -78,7 +81,8 @@ io.on('connect',(socket)=>{
         ackCallback({MSG:'ok',
             userId:user.userData.id,
             chat:words,
-            room:user.userRoom
+            room:user.userRoom,
+            history: chatHistory
         })
    })
 
@@ -107,7 +111,9 @@ io.on('connect',(socket)=>{
     socket.on('userSay',(data) =>{
         console.log(data)
         const theuser=users.find(item => item.socketId === socket.id)
-        io.emit('toAll',{username:theuser.userData.name,msg:data.msg})
+        const chatData = {username:theuser.userData.name,msg:data.msg}
+        chatHistory.push(chatData)
+        io.to(theRoom).emit('toAll',chatData)
     })
 })
 
