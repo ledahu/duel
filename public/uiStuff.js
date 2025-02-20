@@ -8,6 +8,8 @@ let words=[]
 let theRoom=''
 let X=0;
 let Y=0;
+const speed = 5;
+const keys = {};
 
 document.addEventListener('mousemove', (event) => {
     const { clientX, clientY } = event;
@@ -21,6 +23,33 @@ document.addEventListener('mousemove', (event) => {
    // coordinates.style.left = `${clientX + 10}px`; // Décalage pour ne pas cacher le curseur
    // coordinates.style.top = `${clientY + 10}px`;
 })
+
+document.addEventListener('keydown', (event) => {
+    keys[event.key] = true;
+});
+
+document.addEventListener('keyup', (event) => {
+    keys[event.key] = false;
+});
+
+// Fonction de mise à jour de la position du carré
+function updatePlayerPosition() {
+    if (keys['ArrowUp'] || keys['z']) Y -= speed;
+    if (keys['ArrowDown'] || keys['s']) Y += speed;
+    if (keys['ArrowLeft'] || keys['q']) X -= speed;
+    if (keys['ArrowRight'] || keys['d']) X += speed;
+
+    X = Math.max(0, Math.min(X, window.innerWidth - 10));
+    Y = Math.max(0, Math.min(Y, window.innerHeight - 10));
+
+    if (user.id) {
+        updateSquarePosition(user.id, X, Y);
+    }
+
+    requestAnimationFrame(updatePlayerPosition);
+}
+
+requestAnimationFrame(updatePlayerPosition);
 
 document.querySelector('.name-form').addEventListener('submit',(e)=>{
     e.preventDefault();
@@ -105,4 +134,3 @@ function createSquare(id, x, y,color) {
     return false
   }
 
-  
