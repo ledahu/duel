@@ -18,6 +18,9 @@ const init = async()=>{
         user.id=initData.userId
         words=initData.chat
         theRoom=initData.room
+        initData.history.forEach(message => {
+            addToChat(message)
+        });
         setMSG(initData.MSG)
         setRoom(theRoom)
         createButtonsChat(words)
