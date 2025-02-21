@@ -1,1 +1,1 @@
-#ADJ{float:left;background-color:#292950;color:#fff;position:relative;width:500px;height:500px}/*# sourceMappingURL=styles.min.css.map */
+.flex-container{display:flex;justify-content:center;align-items:center;flex-direction:column;gap:20px}.sidebar{position:absolute;left:20px}.baballe{height:10px;width:10px;border-radius:50%;position:absolute}

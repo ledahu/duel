@@ -135,3 +135,38 @@ function squareExist(id) {
   if (document.getElementById(id)) return true;
   return false;
 }
+
+function createGame(height, width, nbOfBaballes) {
+  playArea.style.height = `${height}px`;
+  playArea.style.width = `${width}px`;
+  playArea.style.position = 'relative';
+  playArea.style.border = '2px solid black';
+  for (let i = 0; i < nbOfBaballes; i++) {
+    const baballe = document.createElement('div');
+    baballe.classList.add('baballe');
+    baballe.style.backgroundColor = getRandomColor();
+    baballesElements.push(baballe);
+  }
+}
+
+/**
+ * @param {{x: number, y: number}[]} data
+ */
+function updateGame(data) {
+  playArea.innerHTML = '';
+  data.forEach(({ x, y }, i) => {
+    baballesElements[i].style.left = x + 'px';
+    baballesElements[i].style.top = y + 'px';
+  });
+  playArea.append(...baballesElements);
+}
+
+function getRandomColor() {
+  const chars = '0123456789ABCDEF';
+  let result = '#';
+  for (let i = 0; i < 6; i++) {
+    const index = Math.floor(Math.random() * 16);
+    result += chars[index];
+  }
+  return result;
+}
