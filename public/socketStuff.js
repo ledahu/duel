@@ -18,9 +18,6 @@ const init = async()=>{
         user.id=initData.userId
         words=initData.chat
         theRoom=initData.room
-        initData.history.forEach(message => {
-            addToChat(message)
-        });
         setMSG(initData.MSG)
         setRoom(theRoom)
         createButtonsChat(words)
@@ -33,6 +30,12 @@ function say(index) {
     socket.emit('userSay',{'msg':index})
 }
 
+
+socket.on('adj',(data)=>{
+
+    //console.log(data)
+    uiUpBalle(JSON.parse(data))
+})
 
 socket.on('toAll',(data)=>{
 
