@@ -1,4 +1,4 @@
-import { Baballe } from './Baballe-a.js';
+import { Baballe } from './Baballe.js';
 
 export class PlayArea {
   #height;
