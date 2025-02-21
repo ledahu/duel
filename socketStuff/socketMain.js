@@ -168,11 +168,31 @@ function generateUniqueString() {
 }
 
 function initGame(room){
-    const maBaballe=new Baballe( 200, 200, 5, '#FFCCCC')
-    adjList[room].addBalle(maBaballe)
-    const maBaballe1=new Baballe( 200, 100, 5, '#FFCCFF')
-    adjList[room].addBalle(maBaballe1)
+    //const maBaballe=new Baballe( 200, 200, 5, '#FFCCCC')
+    //adjList[room].addBalle(maBaballe)
+    const nombreDeBalles=100
+    for(let i=0;i<nombreDeBalles;i++){
+        const col=generateHexColor(120);
+        const maBaballe1=new Baballe( 200, 100, 5, col)
+        adjList[room].addBalle(maBaballe1)
+    }
 }
+
+//generate hex color > seuil
+function generateHexColor(seuil) {
+    if (seuil >= 255) {
+      throw new Error("Le seuil doit être inférieur à 255");
+    }
+    const getComponent = () =>
+      Math.floor(Math.random() * (255 - seuil)) + seuil + 1;
+    const r = getComponent();
+    const g = getComponent();
+    const b = getComponent();
+    return (
+      "#" +
+      [r, g, b].map(c => c.toString(16).padStart(2, "0")).join("")
+    );
+  }
 
 //export default
 module.exports = {getLeaderBoard, generateUniqueString};

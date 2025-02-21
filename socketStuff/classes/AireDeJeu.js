@@ -32,7 +32,9 @@ class AireDeJeu{
     }
 
     getBalles(){
-        return JSON.stringify(this.balles)
+
+        const filtered=this.filterArray(this.balles)
+        return JSON.stringify(filtered)
     }
 
     collisionBords(balle){
@@ -45,6 +47,9 @@ class AireDeJeu{
         }
     }
 
+    filterArray(objects) {
+        return objects.map(({ id, x, y,rayon,couleur }) => ({ id, x, y,rayon,couleur }));
+    }
 
 
 }

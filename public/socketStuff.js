@@ -33,7 +33,7 @@ function say(index) {
 
 socket.on('adj',(data)=>{
 
-    //console.log(data)
+     // console.log(data)
     uiUpBalle(JSON.parse(data))
 })
 
