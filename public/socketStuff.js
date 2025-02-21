@@ -31,6 +31,12 @@ function say(index) {
 }
 
 
+socket.on('adj',(data)=>{
+
+    //console.log(data)
+    uiUpBalle(JSON.parse(data))
+})
+
 socket.on('toAll',(data)=>{
 
     console.log(data)

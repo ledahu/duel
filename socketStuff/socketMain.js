@@ -6,12 +6,20 @@ const app = require('../servers').app;
 //================CLASSES================
 const User = require('./classes/User');
 const UserData = require('./classes/UserData');
+const Baballe = require('./classes/Baballe');
+const ADJ = require('./classes/AireDeJeu');
 //=======================================
 const words = require('./dataChat');
 
 const users = []
 let roomList =[]
+let adjList={}
 let theRoom=''
+
+
+
+/** @type {{username: string, msg: number}[]} */
+const chatHistory = []
 
 
 
@@ -37,6 +45,11 @@ io.on('connect',(socket)=>{
         
         tickTockInterval = setInterval(()=>{
             io.emit('tick',users) // send the event to the "game" room
+            for(let i = 0; i < roomList.length; i++){
+                adjList[roomList[i]].updateBalles()
+                io.to(roomList[i]).emit('adj',adjList[roomList[i]].getBalles())
+            }
+
         },33) //1000/30 = 33.33333, there are 33, 30's in 1000 milliseconds, 1/30th of a second, or 1 of 30fps 
     }
 
@@ -60,6 +73,10 @@ io.on('connect',(socket)=>{
             
             if(theRoom==''){
                 theRoom=generateUniqueString()
+                
+                roomList.push(theRoom);
+                addAdj(theRoom)
+                initGame(theRoom)
             }
 
             socket.join(theRoom)
@@ -78,7 +95,8 @@ io.on('connect',(socket)=>{
         ackCallback({MSG:'ok',
             userId:user.userData.id,
             chat:words,
-            room:user.userRoom
+            room:user.userRoom,
+            history: chatHistory
         })
    })
 
@@ -107,13 +125,19 @@ io.on('connect',(socket)=>{
     socket.on('userSay',(data) =>{
         console.log(data)
         const theuser=users.find(item => item.socketId === socket.id)
-        io.emit('toAll',{username:theuser.userData.name,msg:data.msg})
+        const chatData = {username:theuser.userData.name,msg:data.msg}
+        chatHistory.push(chatData)
+        io.to(theRoom).emit('toAll',chatData)
     })
 })
 
+function addAdj(room){
+    const adj=new ADJ(500,500)
+    adjList[room]=adj
+}
 
 
-function getLeaderBoard(){
+function getLeaderBoard(users){
     const leaderBoardArray = users.map(curUser=>{
         if(curUser.userData){
             return{
@@ -138,9 +162,16 @@ function generateUniqueString() {
         newString = shuffledLetters.slice(0, 4).join('');
     } while (roomList.includes(newString)); // Vérifie que la chaîne n'existe pas déjà
 
-    // Ajoute la chaîne unique au tableau
-    roomList.push(newString);
+    
+
     return newString;
+}
+
+function initGame(room){
+    const maBaballe=new Baballe( 200, 200, 5, '#FFCCCC')
+    adjList[room].addBalle(maBaballe)
+    const maBaballe1=new Baballe( 200, 100, 5, '#FFCCFF')
+    adjList[room].addBalle(maBaballe1)
 }
 
 //export default
