@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>HOME</title>
-	<link rel="stylesheet" type="text/css" href="./styles.css">
+  <head>
+    <title>HOME</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+  </head>
+  <body>
+    <h1 style="text-align: center">Welcome sur la partie <b id="ROOM"></b></h1>
 
-</head>
-<body>
-<h1>
-    Welcome sur la partie <b id="ROOM"></b>
-</h1>
+    <div class="sidebar">
+      <div id="XYZ"></div>
 
-<div id="XYZ"></div>
+      <div id="UserForm">
+        <form class="name-form">
+          <input id="name-input" type="text" name="name-input" placeholder="ton pseudo" required />
+          <button type="submit">GO</button>
+        </form>
+        <div id="MSG"></div>
+      </div>
 
-<div id="MSG"></div>
+      <div id="CHAT"></div>
+    </div>
 
-<div id="UserForm">
-    <form class="name-form">
-        <input id="name-input"  type="text" name="name-input" placeholder="ton pseudo" required>
-        <button type="submit" >GO</button>
-    </form>
-</div>
+    <div class="flex-container">
+      <div id="play-area"></div>
+    </div>
 
-<div id="CHAT"></div>
-  
-
-   <script src="/socket.io/socket.io.js"></script>    
-    <script src="/uiStuff.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/socketStuff.js"></script>
-
-</body>
+    <script src="/uiStuff.js"></script>
+  </body>
 </html>

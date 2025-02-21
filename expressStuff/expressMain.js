@@ -1,11 +1,10 @@
 //The purpose of expressMain is to be the entrypoint for all Express stuff
-const app = require('../servers').app;
-const io = require('../servers').io;
-
+import pkg from '../servers.cjs';
+const { app, io } = pkg;
 
 app.get('/game/:variableRoom', (req, res) => {
-    const variableRoom = req.params.variableRoom;
-    res.redirect(`/?room=`+variableRoom);
+  const variableRoom = req.params.variableRoom;
+  res.redirect(`/?room=` + variableRoom);
 });
 
 /*
@@ -15,4 +14,4 @@ app.get('/game/:variableRoom', (req, res) => {
 });
 */
 
-module.exports = app;
+export default app;
