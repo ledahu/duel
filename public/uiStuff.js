@@ -1,3 +1,4 @@
+
 //set height and width of canvas = window
 let wHeight = window.innerHeight;
 let wWidth = window.innerWidth;
@@ -10,6 +11,7 @@ let X=0;
 let Y=0;
 const speed = 5;
 const keys = {};
+
 
 document.addEventListener('mousemove', (event) => {
     const { clientX, clientY } = event;
@@ -134,4 +136,55 @@ function createSquare(id, x, y,color) {
     return false
   }
 
+  function uiUpBalle(balles){
+
+    //console.log(balles)
+    for (const balle of balles) {
+        //console.log(balle.id+':'+balle.x+'/'+ balle.y); // Traitement de chaque ligne
+        if(!balleExist(balle.id))
+            dessinerBalle(balle)
+        else
+            updateBallePosition(balle)
+      };
+
+
+  }
+
+  function updateBallePosition(balle) {
+    const laballe = document.getElementById(balle.id);
+    if (laballe) {
+        laballe.style.left = balle.x + 'px';
+        laballe.style.top = (balle.y -15) + 'px'; // to be up the cursor
+      return true
+    } else {
+      console.warn(`Aucun élément avec l'id "${id}" n'a été trouvé.`);
+      return false
+    }
+  }
+
+  function balleExist(id) {
+    if(document.getElementById(id))
+        return true
+    return false
+  }
+
+
+  // BABALLE
+  function dessinerBalle(balle) {
+    const adj=document.getElementById('ADJ')
+    let element = document.getElementById(balle.id);
+    if (!element) {
+      element = document.createElement('div');
+      element.id = balle.id;
+      adj.appendChild(element);
+    }
+    // Position centrée : on décale de la moitié de la taille (rayon) pour centrer l'élément
+    element.style.position = 'absolute';
+    element.style.left = (balle.x - balle.rayon) + 'px';
+    element.style.top = (balle.y - balle.rayon) + 'px';
+    element.style.width = (balle.rayon * 2) + 'px';
+    element.style.height = (balle.rayon * 2) + 'px';
+    element.style.backgroundColor = balle.couleur;
+    element.style.borderRadius = '50%';
+  }
   
